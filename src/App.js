@@ -4,29 +4,13 @@ import NoteList from "./Component/NoteList";
 import "../src/style/project.css";
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import SearchAppBar from "./Component/SearchAppBar";
+import Header from "./Component/Header";
 function App() {
-  const [notes, setNotes] = useState([
-    {
-      id: nanoid(),
-      text: "This is my first Note",
-      date: "01/01/2022",
-    },
-    {
-      id: nanoid(),
-      text: "This is my second Note",
-      date: "05/01/2022",
-    },
-    {
-      id: nanoid(),
-      text: "This is my third Note",
-      date: "01/08/2022",
-    },
-    {
-      id: nanoid(),
-      text: "This is my forth Note",
-      date: "19/02/2022",
-    }
-  ]);
+  const [notes, setNotes] = useState([]);
+  
+const [searchText,setSearchText]=useState('');
+const [darkMode,setDarkMode]=useState(false);
   const addNote=(text)=>{
     const date = new Date();
     const newNote ={
@@ -37,9 +21,20 @@ function App() {
     const newNotes =[...notes, newNote];
     setNotes(newNotes);
   }
+  const deleteNote =(id)=>{
+    const newFilter=notes.filter((note)=>note.id!==id);
+    setNotes(newFilter);
+  }
   return (
+    <div className={`${darkMode && 'dark-mode'}`}>
     <div className="App">
-      <NoteList notes={notes} handleAddNote={addNote}/>
+      <Header handleDarkMode={setDarkMode}/>
+      <SearchAppBar handleSearchNotes={setSearchText}/>
+      <NoteList 
+       notes={notes.filter((note) =>note.text.toLowerCase().includes(searchText))}
+       handleAddNote={addNote}
+       handleDelete={deleteNote}/>
+    </div>
     </div>
   );
 }

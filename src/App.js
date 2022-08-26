@@ -25,13 +25,14 @@ const [darkMode,setDarkMode]=useState(false);
     const newFilter=notes.filter((note)=>note.id!==id);
     setNotes(newFilter);
   }
+
   return (
     <div className={`${darkMode && 'dark-mode'}`}>
     <div className="App">
       <Header handleDarkMode={setDarkMode}/>
       <SearchAppBar handleSearchNotes={setSearchText}/>
       <NoteList 
-       notes={notes.filter((note) =>note.text.toLowerCase().includes(searchText))}
+       notes={notes.filter((note) =>note.text.toLowerCase().includes(searchText.toLowerCase()))}
        handleAddNote={addNote}
        handleDelete={deleteNote}/>
     </div>

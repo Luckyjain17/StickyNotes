@@ -107,3 +107,7 @@ textarea:focus{
 .Input{
   color: #deb512;
 }
+
+.css-1hut38s .MuiInputBase-input{
+margin-left: 14px;
+}
